@@ -117,7 +117,7 @@ class Register extends Component {
 
             <form method="POST" onSubmit={this.stopSubmission}>
               <div>
-                <label>Full Name</label>
+                <label>Full Name:</label>
                 <input
                   name="full_name"
                   className="form-control"
@@ -131,7 +131,7 @@ class Register extends Component {
               <div className="text-danger">{this.state.full_nameError}</div>
               <br></br>
               <div>
-                <label>Email</label>
+                <label>Email:</label>
                 <input
                   name="email"
                   className="form-control"
@@ -148,6 +148,7 @@ class Register extends Component {
                 <label>Password</label>
                 <input
                   name="password"
+                  type="password"
                   className="form-control"
                   placeholder="Enter your password"
                   value={this.state.password}
@@ -179,7 +180,7 @@ class Register extends Component {
               </div><br></br>
 
               <div>
-                <Link to="/dashboard"><button className="btn btn-outline-warning">Go Back</button></Link>
+                <Link to="/dashboard"><button className="btn btn-outline-secondary">Go Back</button></Link>
               </div>
             </form>
           </section>

@@ -1,26 +1,31 @@
 // import './css/style.css';
 import { Link } from 'react-router-dom'
 import React from 'react'
+import axios from "axios";
+import { environment } from '../services/DeveloperService';
+import { Button } from 'reactstrap';
 
 
 const INITIAL_STATE = {
   name: "",
   phone: "",
   email: "",
+  location: "",
+  budget: "",
+  website: "",
   nameError: "",
   phoneError: "",
-  emailError: ""
+  emailError: "",
+  locationError: "",
+  budgetError: "",
+  websiteError: ""
 }
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = INITIAL_STATE
-
-    this.changeNameHandler = this.changeNameHandler.bind(this)
     this.stopSubmission = this.stopSubmission.bind(this)
-    // this.changePhoneHandler=this.changePhoneHandler.bind(this)
-    // this.changeEmailHandler=this.changeEmailHandler.bind(this)
   }
 
   changeNameHandler = (e) => {
@@ -43,6 +48,9 @@ class Contact extends React.Component {
     let nameError = ""
     let phoneError = ""
     let emailError = ""
+    let locationError = ""
+    let budgetError = ""
+    let websiteError = ""
     if (!this.state.name) {
       nameError = "Name cannot be empty"
     }
@@ -58,8 +66,20 @@ class Contact extends React.Component {
     if (!this.state.phone.match("^[6-9]\\d{9}$")) {
       phoneError = "Invalid phone number"
     }
-    if (emailError || nameError || phoneError) {
-      this.setState({ emailError, nameError, phoneError })
+    if (!this.state.location) {
+      locationError = "Please choose a location"
+    }
+    if (!this.state.budget) {
+      budgetError = "Please select your budget"
+    }
+    if (!this.state.website) {
+      websiteError = "Website cannot be empty"
+    }
+    else if (!this.state.website.match("\\S+?\\S+?\\.com")) {
+      websiteError = "Invalid website url"
+    }
+    if (emailError || nameError || phoneError || locationError || budgetError || websiteError) {
+      this.setState({ emailError, nameError, phoneError, locationError, budgetError, websiteError })
       return false
     }
     return true
@@ -67,12 +87,25 @@ class Contact extends React.Component {
 
   stopSubmission = (e) => {
     e.preventDefault()
+    const data = {
+      name: this.state.name,
+      email: this.state.email,
+      phone: this.state.phone,
+      location: this.state.location,
+      budget: this.state.budget,
+      website: this.state.website
+    };
+
     const isValid = this.validate()
     if (isValid) {
-      console.log(this.state)
-      this.setState(INITIAL_STATE)
+      axios
+        .post(`${environment.contactUrl}/register`, data)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+      console.log('Contact Info:', this.state);
+      this.setState(INITIAL_STATE);
     }
-  }
+  };
 
   render() {
     return (
@@ -100,7 +133,7 @@ class Contact extends React.Component {
             <div>Please use this form to contact a member of our website team</div>
             <form method="POST" onSubmit={this.stopSubmission}><br></br>
               <div>
-                <label>Full Name</label>
+                <label>Full Name:</label>
                 <input
                   value={this.state.name}
                   name="name"
@@ -115,7 +148,7 @@ class Contact extends React.Component {
               <br></br>
 
               <div>
-                <label>Email</label>
+                <label>Email:</label>
                 <input
                   name="email"
                   value={this.state.email}
@@ -130,7 +163,7 @@ class Contact extends React.Component {
               </div>
               <br></br>
               <div>
-                <label>Phone Number</label>
+                <label>Phone Number:</label>
                 <input
                   value={this.state.phone}
                   name="phone"
@@ -141,12 +174,66 @@ class Contact extends React.Component {
               </div>
               <div className="text-danger">
                 {this.state.phoneError}
+                <br></br>
+              </div>
+              <label>Location:</label>
+              <div>
+                <select class="form-control" name="location" value={this.state.location}
+                  onChange={(e) =>
+                    this.setState({ location: e.target.value })
+                  }>
+                  <option></option>
+                  <option >Boston</option>
+                  <option >Miami</option>
+                  <option >New York</option>
+                </select>
+              </div>
+              <div className="text-danger">
+                {this.state.locationError}
               </div>
               <br></br>
-              <div> <button className="btn btn-outline-primary mt-2" disabled={!this.state.phone}>Submit</button></div>
+
+
+              <h5>About Your Project</h5>
+
+              <div class="form-group">
+                <label htmlFor="budget">Budget: </label>
+                <select class="form-control" name="budget" value={this.state.budget}
+                  onChange={(e) =>
+                    this.setState({ budget: e.target.value })
+                  }>
+                  <option></option>
+                  <option value="100-500">$100 - $500</option>
+                  <option value="500-1000">$500 - $1000</option>
+                  <option value="1000-2000">$1000 - $2000</option>
+                  <option value="2000+">$2000+</option>
+                  <option value="not sure">Not Sure</option>
+                </select>
+              </div>
+              <div className="text-danger">
+                {this.state.budgetError}
+              </div>
+              <br></br>
+
+              <div class="form-group">
+                <label>Current Website:</label>
+                <input class="form-control" name="website" placeholder="Enter current website" value={this.state.website}
+                  onChange={(e) =>
+                    this.setState({ website: e.target.value })
+                  }
+                />
+              </div>
+              <div className="text-danger">
+                {this.state.websiteError}
+              </div>
+              <br></br>
+
+
+
+              <div> <Button outline color="success" disabled={!this.state.phone}>Submit</Button></div>
               <br></br>
               <div>
-                <Link to="/dashboard"><button className="btn btn-outline-warning">Go Back</button></Link>
+                <Link to="/dashboard"><Button outline color="secondary">Go Back</Button></Link>
               </div>
             </form>
 
@@ -157,8 +244,6 @@ class Contact extends React.Component {
         <br></br>
         <footer>Copyright 2017. DCX Developer Directory.</footer>
       </div>
-
-
     );
   }
 

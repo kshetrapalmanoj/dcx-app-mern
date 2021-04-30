@@ -182,12 +182,11 @@ h4 {
 
 table,
 tr,
-td {
+td,
+th {
           margin: 0;
 }
-th {
-          background-color: grey;
-}
+
 table {
           padding: 10px 0 10px 0;
 }
@@ -225,11 +224,11 @@ label {
 footer {
           text-align: center;
           color: #ffffff;
-          padding-top: 15px;
+          padding-top: px;
           margin-top: 20px;
-          height: 30px;
+          height: 15px;
           width: 100%;
-          background: #000000;
+          /* background: red; */
 }
 
 input {

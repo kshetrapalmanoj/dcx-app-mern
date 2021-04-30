@@ -48,7 +48,7 @@ function Dashboard() {
       </div>
 
       <div style={{ clear: "both" }}></div>
-
+      <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       <footer>
         Copyright 2017. DCX Developer Directory.
       </footer>

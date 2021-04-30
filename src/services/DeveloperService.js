@@ -1,6 +1,7 @@
 
 export const environment = {
-  baseUrl: "https://dcx-app-server.herokuapp.com/api/developer"
+  baseUrl: "http://localhost:3000/api/developer",
+  contactUrl: "http://localhost:3000/api/contact"
 }
 
 // class DeveloperService {

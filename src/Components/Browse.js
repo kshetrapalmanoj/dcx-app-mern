@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { environment } from '../services/DeveloperService';
+import { Table } from 'react-bootstrap';
 
 
 class Browse extends Component {
@@ -87,12 +88,12 @@ class Browse extends Component {
           <section>
             <h3>Browse Developers</h3>
 
-            <table className="table table-bordered table-striped table-hover">
-              <thead>
+            <Table className="table table-bordered table-striped table-hover" responsive>
+              <thead class="thead-dark">
                 <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Group</th>
+                  <th scope="row">Name</th>
+                  <th scope="row">Email</th>
+                  <th scope="row">Group</th>
                 </tr>
 
               </thead>
@@ -109,7 +110,7 @@ class Browse extends Component {
                 }
 
               </tbody>
-            </table>
+            </Table>
 
             <ReactPaginate
               previousLabel={"Prev"}
@@ -125,6 +126,11 @@ class Browse extends Component {
               activeClassName={"active"} />
           </section>
         </div>
+        <div style={{ clear: "both" }}></div>
+        <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+        <footer>
+          Copyright 2017. DCX Developer Directory.
+      </footer>
       </div>
     )
   }

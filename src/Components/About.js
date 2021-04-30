@@ -45,7 +45,8 @@ function About() {
         </section>
       </div>
       <div style={{ clear: "both" }}></div>
-      <footer>Copyright 2017 DCX Developer Directory.</footer>
+      <br></br>
+      <footer>Copyright 2017. DCX Developer Directory.</footer>
     </div>
 
 
