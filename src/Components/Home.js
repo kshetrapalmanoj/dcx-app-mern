@@ -1,11 +1,28 @@
 // import './css/style.css';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Redirect } from 'react-router';
 import About from './About'
 import Dashboard from './Dashboard';
 import Register from './Register';
 import Browse from './Browse';
 import Contact from './Contact';
+import Login from './Login'
+
 function Home() {
+
+  const LoginGuardRoute = ({ component: Component, ...props }) => (
+    <Route
+      {...props}
+      render={routeProps => {
+        return localStorage.getItem("login") ?
+          (
+            <Component {...routeProps} />
+          ) : (
+            <Redirect to="/login" />
+          );
+      }}
+    />
+  );
 
   return (
     <Router>
@@ -25,19 +42,21 @@ function Home() {
               <li className="menuitem"><Link to="/contact">Contact Us</Link></li>
             </ul>
           </nav>
-
-
         </div>
+
         <Switch>
-          <Route exact path="/" component={Dashboard}></Route>
-          <Route path="/dashboard" component={Dashboard}></Route>
+
+          <LoginGuardRoute path="/dashboard" component={Dashboard} />
+          <LoginGuardRoute path="/register" component={Register} />
+          <LoginGuardRoute path="/browse" component={Browse} />
+          <Route path="/login" component={Login}></Route>
           <Route path="/about" component={About}></Route>
-          <Route path="/register" component={Register}></Route>
-          <Route path="/browse" component={Browse}></Route>
           <Route path="/contact" component={Contact}></Route>
+          <LoginGuardRoute exact path="/" component={Dashboard} />
+
         </Switch>
       </div>
-    </Router>
+    </Router >
 
   );
 }
