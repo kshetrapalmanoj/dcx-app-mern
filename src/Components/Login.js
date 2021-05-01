@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { environment } from '../services/DeveloperService';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ class Login extends Component {
         )
         .catch(
           err => {
-            console.log('Invalid credentials', err)
+            alert('Invalid Credentials', err)
             localStorage.removeItem('login')
           }
         );
@@ -93,7 +94,7 @@ class Login extends Component {
     return (
       <div>
         <div className="container">
-          <h3 className="text-center mb-md-4">Login to Continue</h3>
+          <h2 className="text-center mb-md-4">Login to Continue</h2>
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
               <div className="card-body">
@@ -120,7 +121,12 @@ class Login extends Component {
                   </div>
                   <br></br>
                   <div className="text-center">
-                    <button className="btn btn-success" onClick={this.login}>Login</button>
+                    <button className="btn btn-success" onClick={this.login} disabled={!this.state.password}>Login</button>
+
+                  </div>
+                  <br></br>
+                  <div className="text-center">
+                    <Link to="/signup"><button className="btn btn-outline-secondary">Sign Up</button></Link>
                   </div>
                 </form>
               </div>

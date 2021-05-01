@@ -82,8 +82,9 @@ class Register extends Component {
     if (isValid) {
       axios
         .post(`${environment.baseUrl}/register`, data)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then(res => alert('Developer added Successfully', res))
+        .catch(err => alert("Email Already Exists", err));
+      // alert('Developer added Successfully')
       console.log('Developer Details:', this.state);
       this.setState(INITIAL_STATE);
     }

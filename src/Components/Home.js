@@ -7,6 +7,7 @@ import Register from './Register';
 import Browse from './Browse';
 import Contact from './Contact';
 import Login from './Login'
+import SignUp from './SignUp';
 
 function Home() {
 
@@ -51,6 +52,7 @@ function Home() {
           <LoginGuardRoute path="/register" component={Register} />
           <LoginGuardRoute path="/browse" component={Browse} />
           <Route path="/login" component={Login}></Route>
+          <Route path="/signup" component={SignUp}></Route>
           <LoginGuardRoute path="/about" component={About} />
           <LoginGuardRoute path="/contact" component={Contact} />
           <LoginGuardRoute exact path="/" component={Dashboard} />
