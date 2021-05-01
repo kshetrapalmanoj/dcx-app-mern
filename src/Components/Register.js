@@ -12,7 +12,9 @@ const INITIAL_STATE = {
   full_nameError: "",
   passwordError: "",
   emailError: "",
-  groupError: ""
+  groupError: "",
+  message1: "",
+  message2: ""
 };
 
 class Register extends Component {
@@ -23,8 +25,6 @@ class Register extends Component {
 
     this.stopSubmission = this.stopSubmission.bind(this);
   }
-
-
 
   validate = () => {
     let full_nameError = "";
@@ -82,8 +82,16 @@ class Register extends Component {
     if (isValid) {
       axios
         .post(`${environment.baseUrl}/register`, data)
-        .then(res => alert('Developer added Successfully', res))
-        .catch(err => alert("Email Already Exists", err));
+        .then(res => {
+          this.setState({
+            message1: 'Developer Added Successfully'
+          })
+        })
+        .catch(err => {
+          this.setState({
+            message2: err.response.data.message
+          })
+        });
       // alert('Developer added Successfully')
       console.log('Developer Details:', this.state);
       this.setState(INITIAL_STATE);
@@ -91,6 +99,23 @@ class Register extends Component {
   };
 
   render() {
+    let error = ''
+    let status = ''
+    if (this.state.message2) {
+      error = (
+        <div className="alert alert-danger text-center" role="alert">
+          {this.state.message2}
+        </div>
+      )
+    }
+    if (this.state.message1) {
+      status = (
+        <div class="alert alert-success text-center" role="alert">
+          {this.state.message1}
+        </div>
+      )
+    }
+
     return (
       <div>
         <div id="container">
@@ -117,6 +142,8 @@ class Register extends Component {
             <br></br>
 
             <form method="POST" onSubmit={this.stopSubmission}>
+              {error}
+              {status}
               <div>
                 <label>Full Name:</label>
                 <input

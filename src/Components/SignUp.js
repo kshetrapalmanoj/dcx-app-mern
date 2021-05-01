@@ -12,6 +12,9 @@ const INITIAL_STATE = {
   full_nameError: "",
   passwordError: "",
   emailError: "",
+  groupError: "",
+  message1: "",
+  message2: ""
 };
 
 class SignUp extends Component {
@@ -29,6 +32,7 @@ class SignUp extends Component {
     let full_nameError = "";
     let passwordError = "";
     let emailError = "";
+    let groupError = ""
 
     if (!this.state.full_name) {
       full_nameError = "Name cannot be empty";
@@ -47,15 +51,20 @@ class SignUp extends Component {
     ) {
       emailError = "Email is invalid";
     }
+    if (!this.state.group) {
+      groupError = "Group cannot be empty";
+    }
     if (
       full_nameError ||
       passwordError ||
-      emailError
+      emailError ||
+      groupError
     ) {
       this.setState({
         full_nameError,
         passwordError,
         emailError,
+        groupError
       });
       return false;
     }
@@ -75,25 +84,51 @@ class SignUp extends Component {
     if (isValid) {
       axios
         .post(`${environment.baseUrl}/register`, data)
-        .then(res => alert('Sign Up successful', res))
-        .catch(err => alert("Email Already Exists", err));
-      // alert('Developer added Successfully')
+        .then(res => {
+          this.setState({
+            message1: 'Signed Up Successfully'
+          })
+        })
+        .catch(err => {
+          this.setState({
+            message2: err.response.data.message
+          })
+        });
       console.log('Developer Details:', this.state);
       this.setState(INITIAL_STATE);
     }
   };
 
   render() {
+    let error = ''
+    let status = ''
+    if (this.state.message2) {
+      error = (
+        <div className="alert alert-danger text-center" role="alert">
+          {this.state.message2}
+        </div>
+      )
+    }
+    if (this.state.message1) {
+      status = (
+        <div class="alert alert-success text-center" role="alert">
+          {this.state.message1}
+        </div>
+      )
+    }
+
     return (
       <div>
         <div className="container">
           <h2 className="text-center mb-md-4">Sign Up</h2>
           <div className="row">
-            <div className="card col-md-6 offset-md-3 offset-md-3">
+            <div className="card col-md-6 offset-md-3 offset-md-3" style={{ borderRadius: "10px" }}>
               <div className="card-body">
                 <form method="POST" onSubmit={this.stopSubmission}>
+                  {error}
+                  {status}
                   <div>
-                    <label>Full Name:</label>
+                    <label className="font-weight-bold">Full Name</label>
                     <input
                       name="full_name"
                       className="form-control"
@@ -107,7 +142,7 @@ class SignUp extends Component {
                   <div className="text-danger">{this.state.full_nameError}</div>
                   <br></br>
                   <div>
-                    <label>Email:</label>
+                    <label className="font-weight-bold">Email</label>
                     <input
                       name="email"
                       className="form-control"
@@ -121,7 +156,7 @@ class SignUp extends Component {
                   <div className="text-danger">{this.state.emailError}</div>
                   <br></br>
                   <div>
-                    <label>Password</label>
+                    <label className="font-weight-bold">Password</label>
                     <input
                       name="password"
                       type="password"
@@ -136,24 +171,21 @@ class SignUp extends Component {
                   <div className="text-danger">{this.state.passwordError}</div>
                   <br></br>
                   <div>
-                    <label>Group</label>
+                    <label className="font-weight-bold">Group</label>
                   </div>
 
                   <select class="custom-select" name="group" value={this.state.group}
                     onChange={(e) =>
                       this.setState({ group: e.target.value })
                     }>
+                    <option></option>
                     <option >Developer</option>
                   </select>
 
                   <div className="text-danger">{this.state.groupError}</div>
                   <br></br>
-                  <div>
-                    <button className="btn btn-outline-success mt-2" disabled={!this.state.group}>Submit</button>
-
-                  </div><br></br>
-
-                  <div>
+                  <div className="text-center">
+                    <button className="btn btn-outline-success mr-3" disabled={!this.state.group}>Submit</button>
                     <Link to="/login"><button className="btn btn-outline-secondary">Sign In Now</button></Link>
                   </div>
                 </form>
@@ -162,8 +194,6 @@ class SignUp extends Component {
           </div>
         </div>
       </div>
-
-
 
     );
   }

@@ -18,7 +18,8 @@ const INITIAL_STATE = {
   emailError: "",
   locationError: "",
   budgetError: "",
-  websiteError: ""
+  websiteError: "",
+  message1: "",
 }
 class Contact extends React.Component {
   constructor(props) {
@@ -100,14 +101,38 @@ class Contact extends React.Component {
     if (isValid) {
       axios
         .post(`${environment.contactUrl}/register`, data)
-        .then(res => console.log(res))
+        .then(res => {
+          this.setState({
+            message1: 'Data Submitted Successfully'
+          })
+        })
+        .catch(err => console.log(err));
+      console.log('Contact Info:', this.state);
+      this.setState(INITIAL_STATE);
+    }
+    if (isValid) {
+      axios
+        .post(`${environment.mailUrl}`, data)
+        .then(res => {
+          window.location.href = 'https://mailthis.to/confirm';
+          console.log(res);
+        })
         .catch(err => console.log(err));
       console.log('Contact Info:', this.state);
       this.setState(INITIAL_STATE);
     }
   };
 
+
   render() {
+    let status = ''
+    if (this.state.message1) {
+      status = (
+        <div class="alert alert-success" role="alert">
+          {this.state.message1}
+        </div>
+      )
+    }
     return (
 
       <div>
@@ -131,7 +156,9 @@ class Contact extends React.Component {
           <section>
             <h3>Contact Us</h3>
             <div>Please use this form to contact a member of our website team</div>
-            <form method="POST" onSubmit={this.stopSubmission}><br></br>
+            <br></br>
+            <form method="POST" onSubmit={this.stopSubmission}>
+              {status}
               <div>
                 <label>Full Name:</label>
                 <input

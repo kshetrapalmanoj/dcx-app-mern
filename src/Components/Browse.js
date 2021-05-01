@@ -89,7 +89,7 @@ class Browse extends Component {
             <h3>Browse Developers</h3>
 
             <Table className="table table-bordered table-striped table-hover" responsive>
-              <thead class="thead-dark">
+              <thead style={{ backgroundColor: "#054caa" }}>
                 <tr>
                   <th scope="row">Name</th>
                   <th scope="row">Email</th>
@@ -113,8 +113,8 @@ class Browse extends Component {
             </Table>
 
             <ReactPaginate
-              previousLabel={"Prev"}
-              nextLabel={"Next"}
+              previousLabel={"<< Prev"}
+              nextLabel={"Next >>"}
               breakLabel={"..."}
               breakClassName={"break-me"}
               pageCount={this.state.pageCount}
@@ -122,8 +122,10 @@ class Browse extends Component {
               pageRangeDisplayed={5}
               onPageChange={this.handlePageClick}
               containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"} />
+              previousLinkClassName={"pagination__link"}
+              nextLinkClassName={"pagination__link"}
+              disabledClassName={"pagination__link--disabled"}
+              activeClassName={"pagination__link--active"} />
           </section>
         </div>
         <div style={{ clear: "both" }}></div>
