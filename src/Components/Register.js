@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import React, { Component } from "react";
 import axios from "axios";
 import { environment } from '../services/DeveloperService';
+import Header from './Header';
 
 const INITIAL_STATE = {
   full_name: "",
@@ -119,6 +120,9 @@ class Register extends Component {
     return (
       <div>
         <div id="container">
+          <Header />
+        </div>
+        <div id="container">
 
           <nav id="leftMenu">
             <h3>Links</h3>
@@ -203,12 +207,12 @@ class Register extends Component {
               <div className="text-danger">{this.state.groupError}</div>
               <br></br>
               <div>
-                <button className="btn btn-outline-success mt-2" disabled={!this.state.group}>Submit</button>
+                <button className="btn btn-outline-success mt-2 btn-sm" disabled={!this.state.group}>Submit</button>
 
               </div><br></br>
 
               <div>
-                <Link to="/dashboard"><button className="btn btn-outline-secondary">Go Back</button></Link>
+                <Link to="/dashboard"><button className="btn btn-outline-secondary btn-sm">Go Back</button></Link>
               </div>
             </form>
           </section>

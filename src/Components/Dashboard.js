@@ -1,10 +1,14 @@
 // import './css/style.css';
 import img from '../images/web.jpg';
 import { Link } from 'react-router-dom'
+import Header from './Header';
 
 function Dashboard() {
   return (
     <div>
+      <div id="container">
+        <Header />
+      </div>
       <div id="container">
 
         <aside>
@@ -27,7 +31,7 @@ function Dashboard() {
         </aside>
 
         <section>
-          <h2>Welcome to DCX Developer Directory!</h2>
+          <h3>Welcome to DCX Developer Directory!</h3>
           <img className="float" src={img} alt="web developer directory" />
           <h3>Who Are We?</h3>
           <p>

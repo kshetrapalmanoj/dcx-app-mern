@@ -4,6 +4,7 @@ import React from 'react'
 import axios from "axios";
 import { environment } from '../services/DeveloperService';
 import { Button } from 'reactstrap';
+import Header from './Header';
 
 
 const INITIAL_STATE = {
@@ -137,6 +138,9 @@ class Contact extends React.Component {
 
       <div>
         <div id="container">
+          <Header />
+        </div>
+        <div id="container">
 
           <nav id="leftMenu">
             <h3>Links</h3>
@@ -221,7 +225,7 @@ class Contact extends React.Component {
               <br></br>
 
 
-              <h5>About Your Project</h5>
+              <h6>About Your Project</h6>
 
               <div class="form-group">
                 <label htmlFor="budget">Budget: </label>
@@ -257,10 +261,10 @@ class Contact extends React.Component {
 
 
 
-              <div> <Button outline color="success" disabled={!this.state.phone}>Submit</Button></div>
+              <div> <Button outline color="success" className="btn btn-sm" disabled={!this.state.phone}>Submit</Button></div>
               <br></br>
               <div>
-                <Link to="/dashboard"><Button outline color="secondary">Go Back</Button></Link>
+                <Link to="/dashboard"><Button outline color="secondary" className="btn btn-sm">Go Back</Button></Link>
               </div>
             </form>
 

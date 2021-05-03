@@ -120,11 +120,12 @@ class SignUp extends Component {
     return (
       <div>
         <div className="container">
-          <h2 className="text-center mb-md-4">Sign Up</h2>
+          <h3 className="text-center mb-md-4"><pre> </pre></h3>
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3" style={{ borderRadius: "10px" }}>
               <div className="card-body">
                 <form method="POST" onSubmit={this.stopSubmission}>
+                  <h3 className="text-center mb-md-4">Sign Up</h3>
                   {error}
                   {status}
                   <div>
@@ -185,8 +186,8 @@ class SignUp extends Component {
                   <div className="text-danger">{this.state.groupError}</div>
                   <br></br>
                   <div className="text-center">
-                    <button className="btn btn-outline-success mr-3" disabled={!this.state.group}>Submit</button>
-                    <Link to="/login"><button className="btn btn-outline-secondary">Sign In Now</button></Link>
+                    <button className="btn btn-outline-success mr-3 btn-sm" disabled={!this.state.group}>Submit</button>
+                    <Link to="/login"><button className="btn btn-outline-secondary btn-sm">Sign In Now</button></Link>
                   </div>
                 </form>
               </div>

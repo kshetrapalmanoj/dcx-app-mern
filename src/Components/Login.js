@@ -70,11 +70,12 @@ class Login extends Component {
     return (
       <div>
         <div className="container">
-          <h2 className="text-center mb-md-4">Login to Continue</h2>
+          <h3 className="text-center mb-md-4"><pre> </pre></h3>
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3" style={{ borderRadius: "10px" }}>
               <div className="card-body">
                 <form>
+                  <h3 className="text-center mb-md-4">Login to Continue</h3>
                   {error}
                   <div className="form-group">
                     <label htmlFor="empEmail" className="font-weight-bold">Email Address</label>
@@ -90,7 +91,7 @@ class Login extends Component {
                   <div className="text-danger">{this.state.passwordError}
                   </div>
                   <div className="text-center">
-                    <button className="btn btn-success mr-3" onClick={this.login} disabled={!this.state.password}>Login</button>
+                    <button className="btn btn-success mr-3 btn-sm" onClick={this.login} disabled={!this.state.password}>Login</button>
                     <Link to="/signup"><button className="btn btn-outline-secondary btn-sm">Sign Up</button></Link>
                   </div>
                 </form>

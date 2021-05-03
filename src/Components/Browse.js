@@ -6,6 +6,7 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { environment } from '../services/DeveloperService';
 import { Table } from 'react-bootstrap';
+import Header from './Header';
 
 
 class Browse extends Component {
@@ -71,6 +72,9 @@ class Browse extends Component {
     return (
       <div>
         <div id="container">
+          <Header />
+        </div>
+        <div id="container">
           <nav id="leftMenu">
             <h3>Links</h3>
             <ul>
@@ -91,9 +95,9 @@ class Browse extends Component {
             <Table className="table table-bordered table-striped table-hover" responsive>
               <thead style={{ backgroundColor: "#054caa" }}>
                 <tr>
-                  <th scope="row">Name</th>
-                  <th scope="row">Email</th>
-                  <th scope="row">Group</th>
+                  <th scope="row" style={{ textAlign: "center" }}>Name</th>
+                  <th scope="row" style={{ textAlign: "center" }}>Email</th>
+                  <th scope="row" style={{ textAlign: "center" }}>Group</th>
                 </tr>
 
               </thead>

@@ -1,12 +1,17 @@
 // import './css/style.css';
 import video from '../videos/ad.mp4'
 import { Link } from 'react-router-dom'
+import Header from './Header';
 
 function About() {
   return (
 
     <div>
       <div id="container">
+        <Header />
+      </div>
+      <div id="container">
+
 
         <nav id="leftMenu">
           <h3>Links</h3>
@@ -24,7 +29,7 @@ function About() {
         </nav>
 
         <section>
-          <h2>DCX Developer Directory!</h2>
+          <h3>DCX Developer Directory!</h3>
           <h3>Who Are We?</h3>
           <p>
             We are a fictional website and service that list top web developers
