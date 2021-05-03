@@ -1,11 +1,9 @@
 // import './css/style.css';
 import { Link } from 'react-router-dom'
 import React from 'react'
-import axios from "axios";
-import { environment } from '../services/DeveloperService';
+import DeveloperService from '../services/DeveloperService';
 import { Button } from 'reactstrap';
 import Header from './Header';
-
 
 const INITIAL_STATE = {
   name: "",
@@ -100,20 +98,17 @@ class Contact extends React.Component {
 
     const isValid = this.validate()
     if (isValid) {
-      axios
-        .post(`${environment.contactUrl}/register`, data)
-        .then(res => {
-          this.setState({
-            message1: 'Data Submitted Successfully'
-          })
+      DeveloperService.submitContactForm(data).then(res => {
+        this.setState({
+          message1: 'Data Submitted Successfully'
         })
+      })
         .catch(err => console.log(err));
       console.log('Contact Info:', this.state);
       this.setState(INITIAL_STATE);
     }
     if (isValid) {
-      axios
-        .post(`${environment.mailUrl}`, data)
+      DeveloperService.sendMail(data)
         .then(res => {
           window.location.href = 'https://mailthis.to/confirm';
           console.log(res);
@@ -129,7 +124,7 @@ class Contact extends React.Component {
     let status = ''
     if (this.state.message1) {
       status = (
-        <div class="alert alert-success" role="alert">
+        <div className="alert alert-success" role="alert">
           {this.state.message1}
         </div>
       )
@@ -209,7 +204,7 @@ class Contact extends React.Component {
               </div>
               <label>Location:</label>
               <div>
-                <select class="form-control" name="location" value={this.state.location}
+                <select className="form-control" name="location" value={this.state.location}
                   onChange={(e) =>
                     this.setState({ location: e.target.value })
                   }>
@@ -227,9 +222,9 @@ class Contact extends React.Component {
 
               <h6>About Your Project</h6>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label htmlFor="budget">Budget: </label>
-                <select class="form-control" name="budget" value={this.state.budget}
+                <select className="form-control" name="budget" value={this.state.budget}
                   onChange={(e) =>
                     this.setState({ budget: e.target.value })
                   }>
@@ -246,9 +241,9 @@ class Contact extends React.Component {
               </div>
               <br></br>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label>Current Website:</label>
-                <input class="form-control" name="website" placeholder="Enter current website" value={this.state.website}
+                <input className="form-control" name="website" placeholder="Enter current website" value={this.state.website}
                   onChange={(e) =>
                     this.setState({ website: e.target.value })
                   }

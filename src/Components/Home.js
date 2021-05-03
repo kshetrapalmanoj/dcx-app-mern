@@ -1,5 +1,5 @@
 // import './css/style.css';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router';
 import About from './About'
 import Dashboard from './Dashboard';
@@ -28,10 +28,7 @@ function Home() {
   return (
     <Router>
       <div>
-
-
         <Switch>
-
           <LoginGuardRoute path="/dashboard" component={Dashboard} />
           <LoginGuardRoute path="/register" component={Register} />
           <LoginGuardRoute path="/browse" component={Browse} />
@@ -40,11 +37,9 @@ function Home() {
           <LoginGuardRoute path="/about" component={About} />
           <LoginGuardRoute path="/contact" component={Contact} />
           <LoginGuardRoute exact path="/" component={Dashboard} />
-
         </Switch>
       </div>
     </Router >
-
   );
 }
 

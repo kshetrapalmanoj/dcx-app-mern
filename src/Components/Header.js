@@ -8,7 +8,7 @@ class Header extends Component {
       <div>
         <header>
           <h1><span className="blueText">DCX</span> Developer Directory</h1>
-          <h2>Find A Developer <span class="whiteText">NOW</span></h2>
+          <h2>Find A Developer <span className="whiteText">NOW</span></h2>
         </header>
 
         <nav id="menu">

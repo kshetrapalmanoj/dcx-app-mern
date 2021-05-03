@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
-import { environment } from '../services/DeveloperService';
+import DeveloperService from '../services/DeveloperService';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {
@@ -34,18 +33,17 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    axios
-      .post(`${environment.baseUrl}/login`, data)
-      .then(
-        res => {
-          console.log(res)
-          localStorage.setItem('login', JSON.stringify({
-            login: true,
-            token: res.data
-          }))
-          this.props.history.push('/')
-        }
-      )
+
+    DeveloperService.login(data).then(
+      res => {
+        console.log(res)
+        localStorage.setItem('login', JSON.stringify({
+          login: true,
+          token: res.data
+        }))
+        this.props.history.push('/')
+      }
+    )
       .catch(
         err => {
           this.setState({

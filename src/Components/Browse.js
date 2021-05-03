@@ -1,13 +1,9 @@
-// import './css/style.css';
 import { Link } from 'react-router-dom'
-// export default Browse;
 import React, { Component } from 'react'
-import axios from 'axios';
 import ReactPaginate from 'react-paginate';
-import { environment } from '../services/DeveloperService';
+import DeveloperService from '../services/DeveloperService';
 import { Table } from 'react-bootstrap';
 import Header from './Header';
-
 
 class Browse extends Component {
 
@@ -53,20 +49,18 @@ class Browse extends Component {
   componentDidMount() {
     this.getData();
   }
-  getData() {
-    axios
-      .get(`${environment.baseUrl}`)
-      .then(res => {
-        var tdata = res.data;
-        var slice = tdata.slice(this.state.offset, this.state.offset + this.state.perPage)
-        this.setState({
-          pageCount: Math.ceil(tdata.length / this.state.perPage),
-          orgtableData: tdata,
-          tableData: slice
-        })
-      });
-  }
 
+  getData() {
+    DeveloperService.getDevelopers().then(res => {
+      var tdata = res.data;
+      var slice = tdata.slice(this.state.offset, this.state.offset + this.state.perPage)
+      this.setState({
+        pageCount: Math.ceil(tdata.length / this.state.perPage),
+        orgtableData: tdata,
+        tableData: slice
+      })
+    });
+  }
 
   render() {
     return (
@@ -104,12 +98,11 @@ class Browse extends Component {
               <tbody>
                 {
                   this.state.tableData.map((developer) => (
-                    <tr>
+                    <tr key={developer._id}>
                       <td>{developer.full_name}</td>
                       <td>{developer.email}</td>
                       <td>{developer.group}</td>
                     </tr>
-
                   ))
                 }
 
@@ -136,7 +129,7 @@ class Browse extends Component {
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
         <footer>
           Copyright 2017. DCX Developer Directory.
-      </footer>
+        </footer>
       </div>
     )
   }
