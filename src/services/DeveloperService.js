@@ -1,16 +1,28 @@
+import axios from 'axios'
 
-export const environment = {
-  baseUrl: "http://localhost:3000/api/developer",
-  contactUrl: "http://localhost:3000/api/contact",
-  mailUrl: "https://mailthis.to/manoj",
-  verifyUrl: "http://localhost:3000/verify/data"
+const BASE_URL = "http://localhost:3127/api"
+const MAIL_API_URL = "https://mailthis.to/manoj"
+
+class DeveloperService {
+  registerUser(data) {
+    return axios.post(`${BASE_URL}/developer/register`, data)
+  }
+
+  getDevelopers() {
+    return axios.get(`${BASE_URL}/developer/`);
+  }
+
+  login(data) {
+    return axios.post(`${BASE_URL}/developer/login`, data)
+  }
+
+  submitContactForm(data) {
+    return axios.post(`${BASE_URL}/contact/register`, data);
+  }
+
+  sendMail(data) {
+    return axios.post(`${MAIL_API_URL}`, data)
+  }
 }
 
-// class DeveloperService {
-//   getDevelopers() {
-//     return axios.get(baseUrl);
-//   }
-
-// }
-
-// export default new DeveloperService;
+export default new DeveloperService();

@@ -1,8 +1,6 @@
-// import './css/style.css';
 import { Link } from 'react-router-dom'
 import React, { Component } from "react";
-import axios from "axios";
-import { environment } from '../services/DeveloperService';
+import DeveloperService from '../services/DeveloperService';
 
 const INITIAL_STATE = {
   full_name: "",
@@ -82,13 +80,11 @@ class SignUp extends Component {
 
     const isValid = this.validate();
     if (isValid) {
-      axios
-        .post(`${environment.baseUrl}/register`, data)
-        .then(res => {
-          this.setState({
-            message1: 'Signed Up Successfully'
-          })
+      DeveloperService.registerUser(data).then(res => {
+        this.setState({
+          message1: 'Signed Up Successfully'
         })
+      })
         .catch(err => {
           this.setState({
             message2: err.response.data.message
